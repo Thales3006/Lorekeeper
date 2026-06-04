@@ -6,8 +6,8 @@ const campaign_list = document.querySelector("#campaign-list");
 
 const campaign_repository = new CampaignRepository();
 
-function remove_campaign(id) {
-    campaign_repository.delete_campaign(id);
+async function remove_campaign(id) {
+    await campaign_repository.delete_campaign(id);
     const campaign_card = document.querySelector(`#campaign-${id}`);
     campaign_card.remove();
 }
@@ -21,9 +21,7 @@ function CampaignCardComponent(campaign) {
     btn_delete.type = "button";
     btn_delete.textContent = "Delete";
 
-    btn_delete.addEventListener("click", () => {
-        remove_campaign(campaign.id);
-    });
+    btn_delete.addEventListener("click", () => remove_campaign(campaign.id));
 
     div.innerHTML = `
         <h2>${campaign.title}</h2>
@@ -47,10 +45,10 @@ async function load_campaigns() {
     regenerate_view_campaigns();
 }
 
-btn_add_campaign.addEventListener("click", () => {
+btn_add_campaign.addEventListener("click", async () => {
     const campaign = new Campaign(null, "title", "description");
 
-    campaign_repository.create_campaign(campaign);
+    await campaign_repository.create_campaign(campaign);
     campaign_list.append(CampaignCardComponent(campaign));
 });
 
