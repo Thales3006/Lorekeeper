@@ -1,10 +1,25 @@
 import { Campaign } from "../models/campaign.js";
 import { CampaignRepository } from "../repositories/campaign-repository.js";
 
-const btn_add_campaign = document.querySelector("#btn-add-campaign");
 const campaign_list = document.querySelector("#campaign-list");
 
 const campaign_repository = new CampaignRepository();
+const form = document.querySelector("#add-campaign-form");
+
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const data = new FormData(form);
+
+    const title = data.get("title");
+    const description = data.get("description");
+
+    const campaign = new Campaign(null, title, description);
+    await campaign_repository.create_campaign(campaign);
+    campaign_list.append(CampaignCardComponent(campaign));
+
+    form.reset();
+});
 
 async function remove_campaign(id) {
     await campaign_repository.delete_campaign(id);
@@ -44,12 +59,5 @@ async function load_campaigns() {
     await campaign_repository.load_campaigns();
     regenerate_view_campaigns();
 }
-
-btn_add_campaign.addEventListener("click", async () => {
-    const campaign = new Campaign(null, "title", "description");
-
-    await campaign_repository.create_campaign(campaign);
-    campaign_list.append(CampaignCardComponent(campaign));
-});
 
 load_campaigns();
