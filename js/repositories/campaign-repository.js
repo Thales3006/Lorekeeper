@@ -20,7 +20,25 @@ export class CampaignRepository {
         return this._campaigns;
     }
 
-    add_campaign(campaign) {
+    create_campaign(campaign) {
         this._campaigns.push(campaign);
+    }
+
+    read_campaign(id) {
+        return this._campaigns.find((c) => c.id === id);
+    }
+
+    update_campaign(campaign) {
+        const index = this._campaigns.findIndex(c => c.id === id);
+        if (index !== -1) {
+            this._campaigns[index] = campaign;
+        }
+    }
+
+    delete_campaign(id) {
+        const index = this._campaigns.findIndex(c => c.id === id);
+        if (index !== -1) {
+                this._campaigns.splice(index, 1);
+            }
     }
 }
