@@ -24,3 +24,10 @@ div.campaign-card {
 	border: 0.1rem solid #bfa867;
 	background-color: #7a6238;
 }
+
+#add-campaign-form {
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	border: 0.1rem solid #bfa867;
+	background-color: #7a6238;
+} 
