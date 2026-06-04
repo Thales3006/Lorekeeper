@@ -5,6 +5,22 @@ section.campaigns {
 
 	display: flex;
 	justify-content: center;
-	flex-direction: column;
 	align-items: center;
+	flex-direction: column;
+}
+
+#campaign-list {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	gap: 0.5rem;
+
+	width: min(40rem,50%);
+}
+
+div.campaign-card {
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	border: 0.1rem solid #bfa867;
+	background-color: #7a6238;
 }
