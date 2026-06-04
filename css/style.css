@@ -6,3 +6,9 @@ header {
 	padding: 1rem;
 	background-color: #663;
 }
+
+header a {
+    background-color: #3F7;
+    border-radius: 2rem;
+    padding: 0.3rem;
+}
