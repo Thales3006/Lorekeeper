@@ -1,8 +1,34 @@
 
+h1 {
+	font-size: 2rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, a, button, input {
+	margin: 0.15em;
+}
+
+button {
+	background-color: #7a6238;
+	border: 0.2rem solid #bfa867;
+	border-radius: 1rem;
+}
+
+button:hover {
+	background-color: #Aa9268;
+}
+
+input {
+	background-color: #bfb6a6;
+	border: 0.15rem solid #a18538;
+	border-radius: 0.1rem;
+}
+
 section.campaigns {
 	padding: 0.5rem;
-	border: 1rem solid #EEE;
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -21,13 +47,27 @@ section.campaigns {
 div.campaign-card {
 	padding: 0.5rem;
 	border-radius: 0.5rem;
-	border: 0.1rem solid #bfa867;
+	border: 0.3rem solid #bfa867;
 	background-color: #7a6238;
+	height: 10rem;
+
+	position: relative;
+
+
+	p {
+		color: #CFCFCF;
+	}
+
+	button {
+		position: absolute; 
+		right: 0.5rem;
+		top: 0.5rem;
+	}
 }
 
 #add-campaign-form {
 	padding: 0.5rem;
 	border-radius: 0.5rem;
-	border: 0.1rem solid #bfa867;
+	border: 0.2rem solid #bfa867;
 	background-color: #7a6238;
 } 
