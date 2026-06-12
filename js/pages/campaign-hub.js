@@ -6,7 +6,7 @@ const campaign_list = document.querySelector("#campaign-list");
 const campaign_repository = new CampaignRepository();
 const form = document.querySelector("#add-campaign-form");
 
-form.addEventListener("submit", async (event) => {
+form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const data = new FormData(form);
@@ -15,14 +15,14 @@ form.addEventListener("submit", async (event) => {
     const description = data.get("description");
 
     const campaign = new Campaign(null, title, description);
-    await campaign_repository.create_campaign(campaign);
+    campaign_repository.create_campaign(campaign);
     campaign_list.append(CampaignCardComponent(campaign));
 
     form.reset();
 });
 
-async function remove_campaign(id) {
-    await campaign_repository.delete_campaign(id);
+function remove_campaign(id) {
+    campaign_repository.delete_campaign(id);
     const campaign_card = document.querySelector(`#campaign-${id}`);
     campaign_card.remove();
 }
@@ -63,9 +63,4 @@ function regenerate_view_campaigns() {
     })
 }
 
-async function load_campaigns() {
-    await campaign_repository.load_campaigns();
-    regenerate_view_campaigns();
-}
-
-load_campaigns();
+regenerate_view_campaigns();
