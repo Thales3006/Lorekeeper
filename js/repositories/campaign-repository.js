@@ -34,25 +34,30 @@ export class CampaignRepository {
         return this._campaigns;
     }
 
-    async create_campaign(campaign) {
+    create_campaign(campaign) {
         this._campaigns.push(campaign);
+        this._save();
     }
 
-    async read_campaign(id) {
+    read_campaign(id) {
         return this._campaigns.find((c) => c.id === id);
     }
 
-    async update_campaign(campaign) {
-        const index = this._campaigns.findIndex(c => c.id === id);
+    update_campaign(campaign) {
+        const index = this._campaigns.findIndex(c => c.id === campaign.id);
+
         if (index !== -1) {
             this._campaigns[index] = campaign;
+            this._save();
         }
     }
 
-    async delete_campaign(id) {
+    delete_campaign(id) {
         const index = this._campaigns.findIndex(c => c.id === id);
+
         if (index !== -1) {
-                this._campaigns.splice(index, 1);
-            }
+            this._campaigns.splice(index, 1);
+            this._save();
+        }
     }
 }
