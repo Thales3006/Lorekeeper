@@ -32,11 +32,19 @@ function CampaignCardComponent(campaign) {
     div.className = 'campaign-card';
     div.id = `campaign-${campaign.id}`;
 
+    div.addEventListener('click', () => {
+        window.location.href = `campaign.html?id=${campaign.id}`;
+    });
+
     const btn_delete = document.createElement("button");
     btn_delete.type = "button";
     btn_delete.textContent = "Delete";
+    btn_delete.className = "oncorner";
 
-    btn_delete.addEventListener("click", () => remove_campaign(campaign.id));
+    btn_delete.addEventListener("click", (event) => {
+        event.stopPropagation();
+        remove_campaign(campaign.id);
+    });
 
     div.innerHTML = `
         <h2>${campaign.title}</h2>
