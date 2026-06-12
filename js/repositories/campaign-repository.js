@@ -1,19 +1,33 @@
 import { Campaign } from "../models/campaign.js";
 
 export class CampaignRepository {
-    _campaigns = [];
 
-    constructor() { }
+    constructor() {
+        this._campaigns = [];
+        this._load();
+    }
 
-    async load_campaigns() {
-        // TODO: load real stored campaigns
+    _load() {
+        let data = localStorage.getItem("campaigns");
+        if (data) {
+            this._campaigns = JSON.parse(data);
+        }
+        else {
+            this._campaigns.push(new Campaign(0, "Dungeons  & Doggos", "A dog adventure RPG", []));
+            this._campaigns.push(new Campaign(1, "Ordem para normal", "Uma aventura para pessoas normais", []));
+            this._save();
+        }
 
-        // Local Storage sleep mock
-        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-        await sleep(1000);
+        // WARNING: This is only for testing purpouses, should be removed in the full release
+        if (this._campaigns.length === 0) {
+            this._campaigns.push(new Campaign(0, "Dungeons  & Doggos", "A dog adventure RPG", []));
+            this._campaigns.push(new Campaign(1, "Ordem para normal", "Uma aventura para pessoas normais", []));
+            this._save();
+        }
+    }
 
-        this._campaigns.push(new Campaign(0, "Dungeons  & Doggos", "A dog adventure RPG"));
-        this._campaigns.push(new Campaign(1, "Ordem para normal", "Uma aventura para pessoas normais"));
+    _save() {
+        localStorage.setItem("campaigns", JSON.stringify(this._campaigns));
     }
 
     get campaigns() {
