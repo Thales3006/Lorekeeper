@@ -1,9 +1,10 @@
+import { CrudRepository } from "./crud-repository.js"
 import { Campaign } from "../models/campaign.js";
 
-export class CampaignRepository {
+export class CampaignRepository extends CrudRepository {
 
     constructor() {
-        this._campaigns = [];
+        super();
         this._load();
     }
 
@@ -13,6 +14,7 @@ export class CampaignRepository {
             this._campaigns = JSON.parse(data);
         }
         else {
+            this._campaigns = [];
             this._campaigns.push(new Campaign(0, "Dungeons  & Doggos", "A dog adventure RPG", []));
             this._campaigns.push(new Campaign(1, "Ordem para normal", "Uma aventura para pessoas normais", []));
             this._save();
@@ -30,20 +32,20 @@ export class CampaignRepository {
         localStorage.setItem("campaigns", JSON.stringify(this._campaigns));
     }
 
-    get campaigns() {
-        return this._campaigns;
-    }
-
-    create_campaign(campaign) {
+    create(campaign) {
         this._campaigns.push(campaign);
         this._save();
     }
 
-    read_campaign(id) {
+    read(id) {
         return this._campaigns.find((c) => c.id === id);
     }
 
-    update_campaign(campaign) {
+    read_all() {
+        return structuredClone(this._campaigns);
+    }
+
+    update(campaign) {
         const index = this._campaigns.findIndex(c => c.id === campaign.id);
 
         if (index !== -1) {
@@ -52,7 +54,7 @@ export class CampaignRepository {
         }
     }
 
-    delete_campaign(id) {
+    delete(id) {
         const index = this._campaigns.findIndex(c => c.id === id);
 
         if (index !== -1) {
