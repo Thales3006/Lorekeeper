@@ -15,14 +15,14 @@ form.addEventListener("submit", (event) => {
     const description = data.get("description");
 
     const campaign = new Campaign(null, title, description);
-    campaign_repository.create_campaign(campaign);
+    campaign_repository.create(campaign);
     campaign_list.append(CampaignCardComponent(campaign));
 
     form.reset();
 });
 
 function remove_campaign(id) {
-    campaign_repository.delete_campaign(id);
+    campaign_repository.delete(id);
     const campaign_card = document.querySelector(`#campaign-${id}`);
     campaign_card.remove();
 }
@@ -58,7 +58,7 @@ function CampaignCardComponent(campaign) {
 
 function regenerate_view_campaigns() {
     campaign_list.innerHTML = '';
-    campaign_repository.campaigns.forEach((campaign) => {
+    campaign_repository.read_all().forEach((campaign) => {
         campaign_list.append(CampaignCardComponent(campaign));
     })
 }
