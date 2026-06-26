@@ -1,5 +1,35 @@
 body {
     background-color: #A40;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    margin-top: auto;
+    padding: 0.75rem 1.5rem;
+    background-color: #1c1a18;
+    border-top: 0.1rem solid #3a3a3a;
+    color: #777;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+footer a:hover {
+    color: #bfb6a6;
+}
+
+footer nav {
+    display: flex;
+    gap: 1.25rem;
 }
 
 h1 {
