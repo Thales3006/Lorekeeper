@@ -1,0 +1,167 @@
+button {
+	background-color: #7a6238;
+	border: 0.2rem solid #bfa867;
+	border-radius: 1rem;
+}
+
+button:hover {
+	background-color: #Aa9268;
+}
+
+button:hover:enabled {
+	cursor: pointer;
+}
+
+input {
+	background-color: #bfb6a6;
+	border: 0.15rem solid #a18538;
+	border-radius: 0.1rem;
+}
+
+main h1 {
+	text-align: center;
+}
+
+main section {
+	padding: 0.5rem;
+}
+
+#player-sidebar {
+	display: block;
+	margin-bottom: 1rem;
+}
+
+#new-player-btn {
+	display: block;
+	width: 100%;
+	padding: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+#player-list {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 0.5rem;
+	max-height: 60vh;
+	overflow-y: auto;
+}
+
+.player-card {
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	border: 0.3rem solid #bfa867;
+	background-color: #7a6238;
+	position: relative;
+	width: 90%;
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+
+.player-card p {
+	color: #CFCFCF;
+}
+
+.player-card .oncorner {
+	position: absolute;
+	right: 0.5rem;
+	top: 0.5rem;
+}
+
+.player-card:hover {
+	transform: translateY(-2px) scale(1.02);
+}
+
+#player-detail {
+	display: none;
+}
+
+#back-link {
+	display: inline-block;
+	margin-bottom: 0.5rem;
+	padding: 0.25rem 0.5rem;
+	color: #bfa867;
+	text-decoration: none;
+	cursor: pointer;
+	background-color: #7a6238;
+	border: 0.2rem solid #bfa867;
+	border-radius: 1rem;
+}
+
+#back-link:hover {
+	background-color: #Aa9268;
+}
+
+#player-form {
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	border: 0.2rem solid #bfa867;
+	background-color: #7a6238;
+}
+
+#player-form label {
+	display: block;
+	margin-bottom: 0.25rem;
+	color: #CFCFCF;
+}
+
+#player-form input,
+#player-form select {
+	width: 100%;
+	box-sizing: border-box;
+	margin-bottom: 0.5rem;
+	padding: 0.25rem;
+}
+
+input:disabled,
+select:disabled {
+	background-color: #d4cdbf;
+	cursor: default;
+}
+
+#form-actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 0.5rem;
+}
+
+#form-actions button {
+	padding: 0.5rem 1rem;
+}
+
+@media (min-width: 768px) {
+	main section {
+		display: flex;
+		flex-direction: row;
+		gap: 1.5rem;
+		margin: 0 5%;
+	}
+
+	#player-sidebar {
+		display: block !important;
+		flex: 0 0 400px;
+		margin-bottom: 0;
+	}
+
+	#player-list {
+		max-height: 70vh;
+		border: 0.2rem solid #bfa867;
+		border-radius: 0.5rem;
+		background-color: #7a6238;
+	}
+
+	#player-detail {
+		display: block !important;
+		flex: 1;
+	}
+
+	#back-link {
+		display: none;
+	}
+
+	#player-form {
+		position: sticky;
+		top: 0.5rem;
+	}
+}
