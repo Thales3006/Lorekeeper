@@ -3,11 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title></title>
+        <title>LoreKeeper - Home</title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
+        <link href="css/pages/home.css" rel="stylesheet">
 
-        <script src="js/pages/home.js" defer></script>
+        <script type="module" src="js/pages/home.js"></script>
     </head>
     <body>
         <header>
@@ -18,10 +19,37 @@
             </nav>
         </header>
 
-        <!-- Place holder -->
-        <p>LoreKeeper</p>
-        <button type="button" id="btn-hello">Button that says hello</button>
-        <!-- Place holder -->
+        <main>
+            <section class="hero">
+                <div>
+                    <p>Your adventure awaits</p>
+                    <h1>Keep Your Story Alive</h1>
+                    <hr>
+                    <p>
+                        LoreKeeper is the all-in-one companion for tabletop RPG groups.
+                        Organize your campaigns, manage your players, and keep every adventure on track
+                        — all in one place.
+                    </p>
+                    <a href="campaign-hub.html">Start Your Adventure</a>
+                </div>
+            </section>
+
+            <section class="next-session">
+                <div>
+                    <h2>Next Session</h2>
+                    <div id="next-session-content">
+                        <p>No upcoming sessions scheduled yet. Check back after your GM sets the date!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="resume">
+                <h2>Continue Your Campaign</h2>
+                <p>Jump back into your last adventure.</p>
+                <div id="campaign-preview-list"></div>
+                <a href="campaign-hub.html">View All Campaigns</a>
+            </section>
+        </main>
 
         <footer>
             <span>LoreKeeper &copy; 2026</span>
