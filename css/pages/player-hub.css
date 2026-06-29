@@ -1,0 +1,83 @@
+button {
+	background-color: #7a6238;
+	border: 0.2rem solid #bfa867;
+	border-radius: 1rem;
+}
+
+button:hover {
+	background-color: #Aa9268;
+}
+
+input {
+	background-color: #bfb6a6;
+	border: 0.15rem solid #a18538;
+	border-radius: 0.1rem;
+}
+
+main h1 {
+	text-align: center;
+}
+
+main section{
+	padding: 0.5rem;
+	margin: 0 20% 0 20%;
+}
+
+.margin {
+	margin: 2.5rem;
+}
+
+#player-list {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 0.5rem;
+}
+
+.player-card {
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	border: 0.3rem solid #bfa867;
+	background-color: #7a6238;
+	height: 7rem;
+
+	position: relative;
+
+	p {
+		color: #CFCFCF;
+	}
+
+	.oncorner {
+		position: absolute; 
+		right: 0.5rem;
+		top: 0.5rem;
+	}
+
+	width: min(30rem,70%);
+	height: 10rem;
+}
+
+.player-card {
+    cursor: pointer;
+
+    transition: transform 0.2s;
+}
+
+.player-card:hover {
+    transform: translateY(-2px) scale(1.02);
+
+}
+
+#add-player-form {
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	border: 0.2rem solid #bfa867;
+	background-color: #7a6238;
+
+
+	margin: 0 30% 0 30%;
+	position: sticky;
+	top: 0.5rem;
+	z-index: 999; 
+} 
