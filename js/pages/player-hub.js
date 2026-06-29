@@ -11,10 +11,12 @@ form.addEventListener("submit", (event) => {
 
     const data = new FormData(form);
 
-    const title = data.get("title");
-    const description = data.get("description");
+    const name = data.get("name");
+    const charClass = data.get("class");
+    const race = data.get("race");
+    const alignment = data.get("alignment");
 
-    const player = new Player(null, title, description);
+    const player = new Player(null, name, charClass, race, alignment);
     player_repository.create(player);
     player_list.append(PlayerCardComponent(player));
 
@@ -47,8 +49,8 @@ function PlayerCardComponent(player) {
     });
 
     div.innerHTML = `
-        <h2>${player.title}</h2>
-        <p>${player.description}</p>
+        <h2>${player.name}</h2>
+        <p>${player.charClass} &bull; ${player.race} &bull; ${player.alignment}</p>
     `;
 
     div.appendChild(btn_delete);
