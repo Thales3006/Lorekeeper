@@ -1,0 +1,263 @@
+body {
+    background-color: #1c0f06;
+    background-image:
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 2rem 5.5rem;
+    border-bottom: 0.1rem solid rgba(200, 144, 48, 0.5);
+    text-align: center;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgb(120, 60, 30);
+    pointer-events: none;
+}
+
+.hero > div {
+    position: relative;
+    max-width: 52rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.hero > div > p:first-child {
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    color: #c89030;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    font-size: 3.8rem;
+    font-weight: bold;
+    color: #e8c060;
+    letter-spacing: 0.06em;
+    line-height: 1.15;
+    text-shadow:
+        0 0 50px rgba(232, 192, 96, 0.25),
+        0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.hero hr {
+    width: 4rem;
+    height: 0.1rem;
+    background: linear-gradient(to right, transparent, #c89030, transparent);
+    border: none;
+    margin: 0;
+}
+
+.hero > div > p:last-of-type {
+    font-size: 1.1rem;
+    color: #c8b89a;
+    line-height: 1.85;
+    max-width: 38rem;
+}
+
+.hero > div > a {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border-radius: 0.3rem;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    background-color: #c89030;
+    color: #1a0e06;
+    border: 0.15rem solid #e8c060;
+    box-shadow: 0 0 18px rgba(200, 144, 48, 0.35);
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.hero > div > a:hover {
+    background-color: #e8c060;
+    box-shadow: 0 0 28px rgba(232, 192, 96, 0.55);
+}
+
+.next-session {
+    padding: 4rem 8%;
+}
+
+.next-session > div {
+    background: linear-gradient(135deg, #2e1008 0%, #3d1a0a 50%, #2e1008 100%);
+    border: 0.15rem solid #c84030;
+    border-radius: 0.4rem;
+    padding: 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.next-session > div::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(200, 64, 48, 0.10) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.next-session h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #e07050;
+    margin-bottom: 0.85rem;
+    letter-spacing: 0.05em;
+    position: relative;
+}
+
+#next-session-content {
+    position: relative;
+}
+
+#next-session-content > p {
+    color: #907060;
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+.resume {
+    padding: 4rem 8% 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.resume h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #e8c060;
+    letter-spacing: 0.04em;
+}
+
+.resume > p {
+    color: #a89070;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+#campaign-preview-list {
+    width: 100%;
+    max-width: 38rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.resume > a {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border-radius: 0.3rem;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    background-color: transparent;
+    color: #e8c060;
+    border: 0.15rem solid #c89030;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.resume > a:hover {
+    background-color: rgba(200, 144, 48, 0.12);
+    border-color: #e8c060;
+}
+
+.resume-card {
+    display: block;
+    padding: 1.5rem 1.75rem;
+    background: #2e1a08;
+    border: 0.1rem solid #3d2210;
+    border-radius: 0.4rem;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.resume-card:hover {
+    border-color: rgba(200, 144, 48, 0.5);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.resume-card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #f5edd8;
+    margin-bottom: 0.4rem;
+}
+
+.resume-card-desc {
+    color: #a89070;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.resume-empty {
+    color: #a89070;
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+.session-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    position: relative;
+}
+
+.session-card-campaign {
+    font-weight: bold;
+    color: #f5edd8;
+    font-size: 1.1rem;
+}
+
+.session-card-date {
+    color: #e07050;
+    font-size: 1rem;
+}
+
+.session-card-notes {
+    color: #a89070;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+}
+
+@media (max-width: 600px) {
+    .hero {
+        padding: 3rem 1.25rem;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .next-session {
+        padding: 2rem 1.25rem;
+    }
+
+    .next-session > div {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .resume {
+        padding: 2rem 1.25rem 3rem;
+    }
+
+    .resume-card {
+        padding: 1.25rem 1rem;
+    }
+}
