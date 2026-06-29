@@ -1,51 +1,111 @@
 import { Player } from "../models/player.js";
 import { PlayerRepository } from "../repositories/player-repository.js";
 
-const player_list = document.querySelector("#player-list");
+const playerRepo = new PlayerRepository();
 
-const player_repository = new PlayerRepository();
-const form = document.querySelector("#add-player-form");
+const playerForm = document.querySelector("#player-form");
+const playerList = document.querySelector("#player-list");
+const playerDetail = document.querySelector("#player-detail");
+const sidebar = document.querySelector("#player-sidebar");
+const backLink = document.querySelector("#back-link");
 
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
+const nameInput = document.querySelector("#player-name");
+const classInput = document.querySelector("#player-class");
+const raceInput = document.querySelector("#player-race");
+const alignmentSelect = document.querySelector("#player-alignment");
 
-    const data = new FormData(form);
+const editBtn = document.querySelector("#edit-btn");
+const saveBtn = document.querySelector("#save-btn");
+const discardBtn = document.querySelector("#discard-btn");
 
-    const name = data.get("name");
-    const charClass = data.get("class");
-    const race = data.get("race");
-    const alignment = data.get("alignment");
+let selectedPlayer = null;
+let isEditing = false;
 
-    const player = new Player(null, name, charClass, race, alignment);
-    player_repository.create(player);
-    player_list.append(PlayerCardComponent(player));
+function renderForm() {
+    if (selectedPlayer === null && !isEditing) {
+        nameInput.value = "no player selected";
+        classInput.value = "";
+        raceInput.value = "";
+        alignmentSelect.value = "true-neutral";
+        setFieldsDisabled(true);
+        editBtn.disabled = true;
+        editBtn.hidden = false;
+        saveBtn.hidden = true;
+        discardBtn.hidden = true;
+    } else if (selectedPlayer !== null && !isEditing) {
+        nameInput.value = selectedPlayer.name;
+        classInput.value = selectedPlayer.charClass;
+        raceInput.value = selectedPlayer.race;
+        alignmentSelect.value = selectedPlayer.alignment;
+        setFieldsDisabled(true);
+        editBtn.disabled = false;
+        editBtn.hidden = false;
+        saveBtn.hidden = true;
+        discardBtn.hidden = true;
+    } else {
+        setFieldsDisabled(false);
+        editBtn.disabled = true;
+        editBtn.hidden = true;
+        saveBtn.hidden = false;
+        discardBtn.hidden = false;
+    }
+}
 
-    form.reset();
-});
+function setFieldsDisabled(disabled) {
+    nameInput.disabled = disabled;
+    classInput.disabled = disabled;
+    raceInput.disabled = disabled;
+    alignmentSelect.disabled = disabled;
+}
 
-function remove_player(id) {
-    player_repository.delete(id);
-    const player_card = document.querySelector(`#player-${id}`);
-    player_card.remove();
+function showDetail(show) {
+    if (window.innerWidth >= 768) return;
+    playerDetail.style.display = show ? "block" : "none";
+    sidebar.style.display = show ? "none" : "block";
+}
+
+function regeneratePlayerList() {
+    playerList.innerHTML = "";
+    playerRepo.read_all().forEach((player) => {
+        playerList.append(PlayerCardComponent(player));
+    });
+}
+
+function selectPlayer(player) {
+    selectedPlayer = player;
+    isEditing = false;
+    renderForm();
+    showDetail(true);
+}
+
+function removePlayer(id) {
+    playerRepo.delete(id);
+    if (selectedPlayer && selectedPlayer.id === id) {
+        selectedPlayer = null;
+        isEditing = false;
+        renderForm();
+        showDetail(false);
+    }
+    regeneratePlayerList();
 }
 
 function PlayerCardComponent(player) {
-    const div = document.createElement('div');
-    div.className = 'player-card';
+    const div = document.createElement("div");
+    div.className = "player-card";
     div.id = `player-${player.id}`;
 
-    div.addEventListener('click', () => {
-        window.location.href = `player.html?id=${player.id}`;
+    div.addEventListener("click", () => {
+        selectPlayer(player);
     });
 
-    const btn_delete = document.createElement("button");
-    btn_delete.type = "button";
-    btn_delete.textContent = "Delete";
-    btn_delete.className = "oncorner";
+    const btnDelete = document.createElement("button");
+    btnDelete.type = "button";
+    btnDelete.textContent = "Delete";
+    btnDelete.className = "oncorner";
 
-    btn_delete.addEventListener("click", (event) => {
+    btnDelete.addEventListener("click", (event) => {
         event.stopPropagation();
-        remove_player(player.id);
+        removePlayer(player.id);
     });
 
     div.innerHTML = `
@@ -53,16 +113,83 @@ function PlayerCardComponent(player) {
         <p>${player.charClass} &bull; ${player.race} &bull; ${player.alignment}</p>
     `;
 
-    div.appendChild(btn_delete);
+    div.appendChild(btnDelete);
 
     return div;
 }
 
-function regenerate_view_players() {
-    player_list.innerHTML = '';
-    player_repository.read_all().forEach((player) => {
-        player_list.append(PlayerCardComponent(player));
-    })
+function getFormPlayer() {
+    return new Player(
+        selectedPlayer ? selectedPlayer.id : null,
+        nameInput.value,
+        classInput.value,
+        raceInput.value,
+        alignmentSelect.value,
+        selectedPlayer ? selectedPlayer.created_at : Date.now()
+    );
 }
 
-regenerate_view_players();
+function getNextId() {
+    const all = playerRepo.read_all();
+    if (all.length === 0) return 0;
+    return Math.max(...all.map(p => p.id)) + 1;
+}
+
+document.querySelector("#new-player-btn").addEventListener("click", () => {
+    selectedPlayer = null;
+    isEditing = true;
+    nameInput.value = "";
+    classInput.value = "";
+    raceInput.value = "";
+    alignmentSelect.value = "true-neutral";
+    renderForm();
+    showDetail(true);
+});
+
+editBtn.addEventListener("click", () => {
+    isEditing = true;
+    renderForm();
+});
+
+saveBtn.addEventListener("click", () => {
+    if (!playerForm.checkValidity()) {
+        playerForm.reportValidity();
+        return;
+    }
+    const player = getFormPlayer();
+    if (player.id === null) {
+        player.id = getNextId();
+        playerRepo.create(player);
+    } else {
+        playerRepo.update(player);
+    }
+    selectedPlayer = player;
+    isEditing = false;
+    regeneratePlayerList();
+    renderForm();
+});
+
+discardBtn.addEventListener("click", () => {
+    isEditing = false;
+    if (selectedPlayer === null) {
+        renderForm();
+        showDetail(false);
+    } else {
+        renderForm();
+    }
+});
+
+backLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    showDetail(false);
+});
+
+window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768) {
+        playerDetail.style.display = "";
+        sidebar.style.display = "";
+    }
+});
+
+regeneratePlayerList();
+renderForm();

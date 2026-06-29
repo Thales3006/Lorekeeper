@@ -21,63 +21,71 @@
         </header>
 
         <main>
-            <h1>All of your players</h1>
+            <h1>Players</h1>
             <section>
-                <div class="margin">
-                    <form id="add-player-form">
-                        <div>
-                            <label for="add-player-title">Name</label>
-                            <input
-                                type="text"
-                                id="add-player-name"
-                                name="name"
-                                required
-                            >
-                        </div>
-
-                        <div>
-                            <label for="add-player-class">Class</label>
-                            <input
-                                type="text"
-                                id="add-player-class"
-                                name="class"
-                                required
-                            >
-                        </div>
-
-                        <div>
-                            <label for="add-player-race">Race</label>
-                            <input
-                                type="text"
-                                id="add-player-race"
-                                name="race"
-                                required
-                            >
-                        </div>
-
-                        <div>
-                            <label for="add-player-alignment">Alignment</label>
-                            
-                            <select id="add-player-alignment" name="alignment" required>
-                              <option value="lawful-good">Lawful Good</option>
-                              <option value="lawful-neutral">Lawful Neutral</option>
-                              <option value="lawful-evil">Lawful Evil</option>
-                              <option value="neutral-good">Neutral Good</option>
-                              <option value="true-neutral">True Neutral</option>
-                              <option value="neutral-evil">Neutral Evil</option>
-                              <option value="chaotic-good">Chaotic Good</option>
-                              <option value="chaotic-neutral">Chaotic Neutral</option>
-                              <option value="chaotic-evil">Chaotic Evil</option>
-                            </select>
-                            </div>
-
-                        <button type="submit">Add Player</button>
-                    </form>
-
+                <aside id="player-sidebar">
+                    <button id="new-player-btn">New Player</button>
                     <div id="player-list"></div>
-                </div>
+                </aside>
+                <section id="player-detail">
+                    <a id="back-link" href="#">&lt; Players</a>
+                    <form id="player-form">
+                        <div>
+                            <label for="player-name">Name</label>
+                            <input
+                                type="text"
+                                id="player-name"
+                                name="name"
+                                disabled
+                                required
+                            >
+                        </div>
+
+                        <div>
+                            <label for="player-class">Class</label>
+                            <input
+                                type="text"
+                                id="player-class"
+                                name="class"
+                                disabled
+                                required
+                            >
+                        </div>
+
+                        <div>
+                            <label for="player-race">Race</label>
+                            <input
+                                type="text"
+                                id="player-race"
+                                name="race"
+                                disabled
+                                required
+                            >
+                        </div>
+
+                        <div>
+                            <label for="player-alignment">Alignment</label>
+                            <select id="player-alignment" name="alignment" disabled required>
+                                <option value="lawful-good">Lawful Good</option>
+                                <option value="lawful-neutral">Lawful Neutral</option>
+                                <option value="lawful-evil">Lawful Evil</option>
+                                <option value="neutral-good">Neutral Good</option>
+                                <option value="true-neutral">True Neutral</option>
+                                <option value="neutral-evil">Neutral Evil</option>
+                                <option value="chaotic-good">Chaotic Good</option>
+                                <option value="chaotic-neutral">Chaotic Neutral</option>
+                                <option value="chaotic-evil">Chaotic Evil</option>
+                            </select>
+                        </div>
+
+                        <div id="form-actions">
+                            <button type="button" id="edit-btn" disabled>Edit</button>
+                            <button type="button" id="save-btn" hidden>Save</button>
+                            <button type="button" id="discard-btn" hidden>Discard Changes</button>
+                        </div>
+                    </form>
+                </section>
             </section>
         </main>
     </body>
 </html>
-
