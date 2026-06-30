@@ -3,64 +3,81 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title></title>
+        <meta name="description" content="Create and manage your tabletop campaigns with LoreKeeper.">
+        <title>Campaigns | LoreKeeper</title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
-        <link href="css/pages/campaign-hub.css" rel="stylesheet">
-
-        <script type="module" src="js/pages/campaign-hub.js"></script>
+        <link href="css/pages/campaign-hub.css?v=4" rel="stylesheet">
+        <script type="module" src="js/pages/campaign-hub.js?v=4"></script>
     </head>
     <body>
-        <header>
-            <a class="brand" href="index.html">LoreKeeper</a>
-            <nav>
+        <header class="site-header">
+            <a class="brand" href="index.html" aria-label="LoreKeeper home">
+                <span class="brand-mark" aria-hidden="true">L</span>
+                <span>LoreKeeper</span>
+            </a>
+            <nav aria-label="Main navigation">
                 <a href="index.html">Home</a>
-                <a class="active" href="campaign-hub.html">Campaign Hub</a>
-                <a href="player-hub.html">Player Hub</a>
+                <a class="active" href="campaign-hub.html">Campaigns</a>
+                <a href="player-hub.html">Players</a>
             </nav>
         </header>
 
-        <main>
-            <h1>All of your campaigns</h1>
-            <section>
-                <div class="margin">
-                    <form id="add-campaign-form">
-                        <div>
-                            <label for="add-campaign-title">Title</label>
-                            <input
-                                type="text"
-                                id="add-campaign-title"
-                                name="title"
-                                required
-                            >
-                        </div>
+        <main class="hub-main">
+            <div class="page-shell">
+                <section class="page-heading">
+                    <div>
+                        <p class="eyebrow">Your chronicles</p>
+                        <h1>Campaign library</h1>
+                        <p>Create a new world or return to a story already in motion.</p>
+                    </div>
+                    <div class="heading-actions">
+                        <span id="campaign-total" class="count-badge">0 campaigns</span>
+                        <button class="button button-primary" id="open-campaign-form" type="button">+ New campaign</button>
+                    </div>
+                </section>
 
-                        <div>
-                            <label for="add-campaign-description">Description</label>
-                            <input
-                                type="text"
-                                id="add-campaign-description"
-                                name="description"
-                                required
-                            >
-                        </div>
-
-                        <button type="submit">Add Campaign</button>
-                    </form>
-
-                    <div id="campaign-list"></div>
-                </div>
-            </section>
+                <section class="campaign-library" aria-label="Your campaigns">
+                    <div id="campaign-list" class="campaign-list"></div>
+                </section>
+            </div>
         </main>
+
+        <dialog id="campaign-form-dialog" class="campaign-form-dialog" aria-labelledby="campaign-form-title">
+            <form id="add-campaign-form">
+                <div class="dialog-heading">
+                    <div>
+                        <p class="eyebrow">New adventure</p>
+                        <h2 id="campaign-form-title">Create a campaign</h2>
+                        <p>Start with the essentials. Players can be added from the dashboard.</p>
+                    </div>
+                    <button class="icon-button" id="close-campaign-form" type="button" aria-label="Close form">×</button>
+                </div>
+
+                <div class="field">
+                    <label for="add-campaign-title">Campaign title</label>
+                    <input type="text" id="add-campaign-title" name="title" maxlength="80" placeholder="The Ashen Crown" required>
+                </div>
+
+                <div class="field">
+                    <label for="add-campaign-description">Description</label>
+                    <textarea id="add-campaign-description" name="description" rows="4" maxlength="600" placeholder="What awaits your party?" required></textarea>
+                </div>
+
+                <div class="dialog-actions">
+                    <button class="button button-ghost" id="cancel-campaign-form" type="button">Cancel</button>
+                    <button class="button button-primary" type="submit">Create campaign</button>
+                </div>
+            </form>
+        </dialog>
 
         <footer>
             <span>LoreKeeper &copy; 2026</span>
-            <nav>
+            <nav aria-label="Footer navigation">
                 <a href="index.html">Home</a>
-                <a href="campaign-hub.html">Campaign Hub</a>
+                <a href="campaign-hub.html">Campaigns</a>
                 <a href="https://github.com/Thales3006/LoreKeeper" target="_blank" rel="noopener">GitHub</a>
             </nav>
         </footer>
     </body>
 </html>
-

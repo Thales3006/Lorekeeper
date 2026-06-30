@@ -1,89 +1,71 @@
 import { CampaignRepository } from "../repositories/campaign-repository.js";
+import { PlayerRepository } from "../repositories/player-repository.js";
 
-const campaign_repository = new CampaignRepository();
+const campaignRepository = new CampaignRepository();
+const playerRepository = new PlayerRepository();
 
-function CampaignResumeCard(campaign) {
-    const li = document.createElement("li");
-
-    const a = document.createElement("a");
-    a.className = "resume-card";
-    a.href = `campaign.html?id=${campaign.id}`;
-
-    const title = document.createElement("p");
-    title.className = "resume-card-title";
-    title.textContent = campaign.title;
-
-    const desc = document.createElement("p");
-    desc.className = "resume-card-desc";
-    desc.textContent = campaign.description;
-
-    a.appendChild(title);
-    a.appendChild(desc);
-    li.appendChild(a);
-
-    return li;
+function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    if (Number.isNaN(date.getTime())) return "Date unknown";
+    return new Intl.DateTimeFormat("en", { day: "numeric", month: "long", year: "numeric" }).format(date);
 }
 
-function render_last_campaign() {
+function createCampaignPreview(campaign) {
+    const link = document.createElement("a");
+    link.className = "resume-card";
+    link.href = `campaign.html?id=${campaign.id}`;
+
+    const sigil = document.createElement("span");
+    sigil.className = "resume-sigil";
+    sigil.textContent = campaign.title.trim().charAt(0).toUpperCase() || "?";
+
+    const copy = document.createElement("div");
+    copy.className = "resume-copy";
+    const label = document.createElement("span");
+    label.className = "resume-label";
+    label.textContent = "Most recent campaign";
+    const title = document.createElement("h3");
+    title.textContent = campaign.title;
+    const description = document.createElement("p");
+    description.textContent = campaign.description;
+    const meta = document.createElement("span");
+    const playerCount = campaign.players_id?.length ?? 0;
+    meta.className = "resume-meta";
+    meta.textContent = `${playerCount} ${playerCount === 1 ? "player" : "players"} · Created ${formatDate(campaign.created_at)}`;
+    copy.append(label, title, description, meta);
+
+    const action = document.createElement("span");
+    action.className = "resume-action";
+    action.textContent = "Open dashboard →";
+    link.append(sigil, copy, action);
+    return link;
+}
+
+function renderLastCampaign() {
     const list = document.querySelector("#campaign-preview-list");
-
-    const last_id_raw = localStorage.getItem("last_campaign_id");
-    let campaign = null;
-
-    if (last_id_raw !== null) {
-        campaign = campaign_repository.read(Number(last_id_raw));
-    }
+    const campaigns = campaignRepository.read_all();
+    const lastId = localStorage.getItem("last_campaign_id");
+    let campaign = lastId === null ? null : campaignRepository.read(Number(lastId));
+    if (!campaign) campaign = campaigns.at(-1) ?? null;
 
     if (!campaign) {
-        const all = campaign_repository.read_all();
-        campaign = all.length > 0 ? all[all.length - 1] : null;
-    }
-
-    if (!campaign) {
-        const p = document.createElement("p");
-        p.className = "resume-empty";
-        p.textContent = "No campaigns yet. Create one in the Campaign Hub!";
-        list.appendChild(p);
+        const empty = document.createElement("div");
+        empty.className = "resume-empty";
+        const title = document.createElement("h3");
+        title.textContent = "No campaigns yet";
+        const copy = document.createElement("p");
+        copy.textContent = "Create your first campaign to begin your archive.";
+        const link = document.createElement("a");
+        link.className = "button button-primary";
+        link.href = "campaign-hub.html";
+        link.textContent = "Create a campaign";
+        empty.append(title, copy, link);
+        list.append(empty);
         return;
     }
-
-    list.appendChild(CampaignResumeCard(campaign));
+    list.append(createCampaignPreview(campaign));
 }
 
-function render_next_session(session) {
-    const container = document.querySelector("#next-session-content");
-    container.innerHTML = "";
-
-    const article = document.createElement("article");
-    article.className = "session-card";
-
-    const campaign_name = document.createElement("p");
-    campaign_name.className = "session-card-campaign";
-    campaign_name.textContent = session.campaign_title;
-
-    const date_el = document.createElement("time");
-    date_el.className = "session-card-date";
-    date_el.dateTime = session.date.toISOString();
-    date_el.textContent = session.date.toLocaleDateString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-    });
-
-    article.appendChild(campaign_name);
-    article.appendChild(date_el);
-
-    if (session.notes) {
-        const notes = document.createElement("p");
-        notes.className = "session-card-notes";
-        notes.textContent = session.notes;
-        article.appendChild(notes);
-    }
-
-    container.appendChild(article);
-}
-
-render_last_campaign();
+document.querySelector("#home-campaign-count").textContent = campaignRepository.read_all().length;
+document.querySelector("#home-player-count").textContent = playerRepository.read_all().length;
+renderLastCampaign();

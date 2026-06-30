@@ -3,89 +3,110 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title></title>
+        <meta name="description" content="Manage your tabletop player roster with LoreKeeper.">
+        <title>Players | LoreKeeper</title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/pages/player-hub.css" rel="stylesheet">
-
         <script type="module" src="js/pages/player-hub.js"></script>
     </head>
     <body>
-        <header>
-            <a class="brand" href="index.html">LoreKeeper</a>
-            <nav>
+        <header class="site-header">
+            <a class="brand" href="index.html" aria-label="LoreKeeper home">
+                <span class="brand-mark" aria-hidden="true">L</span>
+                <span>LoreKeeper</span>
+            </a>
+            <nav aria-label="Main navigation">
                 <a href="index.html">Home</a>
-                <a href="campaign-hub.html">Campaign Hub</a>
-                <a class="active" href="player-hub.html">Player Hub</a>
+                <a href="campaign-hub.html">Campaigns</a>
+                <a class="active" href="player-hub.html">Players</a>
             </nav>
         </header>
 
-        <main>
-            <h1>Players</h1>
-            <section>
-                <aside id="player-sidebar">
-                    <button id="new-player-btn">New Player</button>
-                    <div id="player-list"></div>
-                </aside>
-                <section id="player-detail">
-                    <a id="back-link" href="#">&lt; Players</a>
-                    <form id="player-form">
-                        <div>
-                            <label for="player-name">Name</label>
-                            <input
-                                type="text"
-                                id="player-name"
-                                name="name"
-                                disabled
-                                required
-                            >
-                        </div>
-
-                        <div>
-                            <label for="player-class">Class</label>
-                            <input
-                                type="text"
-                                id="player-class"
-                                name="class"
-                                disabled
-                                required
-                            >
-                        </div>
-
-                        <div>
-                            <label for="player-race">Race</label>
-                            <input
-                                type="text"
-                                id="player-race"
-                                name="race"
-                                disabled
-                                required
-                            >
-                        </div>
-
-                        <div>
-                            <label for="player-alignment">Alignment</label>
-                            <select id="player-alignment" name="alignment" disabled required>
-                                <option value="lawful-good">Lawful Good</option>
-                                <option value="lawful-neutral">Lawful Neutral</option>
-                                <option value="lawful-evil">Lawful Evil</option>
-                                <option value="neutral-good">Neutral Good</option>
-                                <option value="true-neutral">True Neutral</option>
-                                <option value="neutral-evil">Neutral Evil</option>
-                                <option value="chaotic-good">Chaotic Good</option>
-                                <option value="chaotic-neutral">Chaotic Neutral</option>
-                                <option value="chaotic-evil">Chaotic Evil</option>
-                            </select>
-                        </div>
-
-                        <div id="form-actions">
-                            <button type="button" id="edit-btn" disabled>Edit</button>
-                            <button type="button" id="save-btn" hidden>Save</button>
-                            <button type="button" id="discard-btn" hidden>Discard Changes</button>
-                        </div>
-                    </form>
+        <main class="players-main">
+            <div class="page-shell">
+                <section class="page-heading">
+                    <div>
+                        <p class="eyebrow">Adventuring party</p>
+                        <h1>Player roster</h1>
+                        <p>Keep every hero organized and ready for their next campaign.</p>
+                    </div>
+                    <button class="button button-primary" id="new-player-btn" type="button">+ New player</button>
                 </section>
-            </section>
+
+                <section class="players-workspace">
+                    <aside id="player-sidebar" class="panel player-sidebar" aria-labelledby="player-list-title">
+                        <div class="sidebar-heading">
+                            <div>
+                                <p class="eyebrow">Characters</p>
+                                <h2 id="player-list-title">All players</h2>
+                            </div>
+                            <span id="player-total" class="player-count">0</span>
+                        </div>
+                        <div id="player-list" class="player-list"></div>
+                    </aside>
+
+                    <section id="player-detail" class="panel player-detail" aria-labelledby="player-form-title">
+                        <a id="back-link" class="back-link" href="#"><span aria-hidden="true">←</span> Players</a>
+                        <div class="detail-heading">
+                            <div>
+                                <p class="eyebrow" id="form-eyebrow">Character sheet</p>
+                                <h2 id="player-form-title">Select a player</h2>
+                                <p id="form-description">Choose a player from the roster to view their details.</p>
+                            </div>
+                        </div>
+
+                        <form id="player-form">
+                            <div class="form-grid">
+                                <div class="field field-wide">
+                                    <label for="player-name">Name</label>
+                                    <input type="text" id="player-name" name="name" maxlength="80" placeholder="Character name" disabled required>
+                                </div>
+
+                                <div class="field">
+                                    <label for="player-class">Class</label>
+                                    <input type="text" id="player-class" name="class" maxlength="60" placeholder="Ranger" disabled required>
+                                </div>
+
+                                <div class="field">
+                                    <label for="player-race">Race</label>
+                                    <input type="text" id="player-race" name="race" maxlength="60" placeholder="Human" disabled required>
+                                </div>
+
+                                <div class="field field-wide">
+                                    <label for="player-alignment">Alignment</label>
+                                    <select id="player-alignment" name="alignment" disabled required>
+                                        <option value="Lawful Good">Lawful Good</option>
+                                        <option value="Lawful Neutral">Lawful Neutral</option>
+                                        <option value="Lawful Evil">Lawful Evil</option>
+                                        <option value="Neutral Good">Neutral Good</option>
+                                        <option value="True Neutral">True Neutral</option>
+                                        <option value="Neutral Evil">Neutral Evil</option>
+                                        <option value="Chaotic Good">Chaotic Good</option>
+                                        <option value="Chaotic Neutral">Chaotic Neutral</option>
+                                        <option value="Chaotic Evil">Chaotic Evil</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="form-actions" class="form-actions">
+                                <button class="button button-secondary" type="button" id="edit-btn" disabled>Edit player</button>
+                                <button class="button button-primary" type="submit" id="save-btn" hidden>Save player</button>
+                                <button class="button button-ghost" type="button" id="discard-btn" hidden>Discard changes</button>
+                            </div>
+                        </form>
+                    </section>
+                </section>
+            </div>
         </main>
+
+        <footer>
+            <span>LoreKeeper &copy; 2026</span>
+            <nav aria-label="Footer navigation">
+                <a href="index.html">Home</a>
+                <a href="campaign-hub.html">Campaigns</a>
+                <a href="https://github.com/Thales3006/LoreKeeper" target="_blank" rel="noopener">GitHub</a>
+            </nav>
+        </footer>
     </body>
 </html>

@@ -1,263 +1,121 @@
-body {
-    background-color: #1c0f06;
-    background-image:
-}
-
 main {
     flex: 1;
     display: flex;
-    flex-direction: column;
+    min-height: 0;
 }
 
 .hero {
     position: relative;
+    width: 100%;
+    min-height: calc(100vh - 8.75rem);
+    display: flex;
     overflow: hidden;
-    padding: 6rem 2rem 5.5rem;
-    border-bottom: 0.1rem solid rgba(200, 144, 48, 0.5);
-    text-align: center;
 }
 
 .hero::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
-    background: rgb(120, 60, 30);
+    background:
+        radial-gradient(circle at 75% 45%, rgba(179, 112, 42, 0.14), transparent 25rem),
+        linear-gradient(115deg, rgba(48, 29, 16, 0.35), transparent 55%);
     pointer-events: none;
 }
 
-.hero > div {
+.hero-layout {
     position: relative;
-    max-width: 52rem;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(17rem, 0.9fr);
     align-items: center;
-    gap: 1.5rem;
+    gap: 3rem;
+    padding-block: clamp(2rem, 6vh, 4rem);
 }
 
-.hero > div > p:first-child {
-    font-size: 0.8rem;
-    font-weight: bold;
-    letter-spacing: 0.2em;
-    color: #c89030;
-    text-transform: uppercase;
+.hero-copy {
+    position: relative;
+    z-index: 2;
+    max-width: 44rem;
 }
 
 .hero h1 {
-    font-size: 3.8rem;
-    font-weight: bold;
-    color: #e8c060;
-    letter-spacing: 0.06em;
-    line-height: 1.15;
-    text-shadow:
-        0 0 50px rgba(232, 192, 96, 0.25),
-        0 2px 6px rgba(0, 0, 0, 0.6);
+    max-width: 42rem;
+    margin: 0.8rem 0 1.1rem;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    letter-spacing: -0.045em;
 }
 
-.hero hr {
-    width: 4rem;
-    height: 0.1rem;
-    background: linear-gradient(to right, transparent, #c89030, transparent);
-    border: none;
-    margin: 0;
-}
-
-.hero > div > p:last-of-type {
-    font-size: 1.1rem;
-    color: #c8b89a;
-    line-height: 1.85;
-    max-width: 38rem;
-}
-
-.hero > div > a {
-    display: inline-block;
-    padding: 0.75rem 2rem;
-    border-radius: 0.3rem;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1rem;
-    letter-spacing: 0.04em;
-    background-color: #c89030;
-    color: #1a0e06;
-    border: 0.15rem solid #e8c060;
-    box-shadow: 0 0 18px rgba(200, 144, 48, 0.35);
-    transition: background-color 0.2s, box-shadow 0.2s;
-}
-
-.hero > div > a:hover {
-    background-color: #e8c060;
-    box-shadow: 0 0 28px rgba(232, 192, 96, 0.55);
-}
-
-.next-session {
-    padding: 4rem 8%;
-}
-
-.next-session > div {
-    background: linear-gradient(135deg, #2e1008 0%, #3d1a0a 50%, #2e1008 100%);
-    border: 0.15rem solid #c84030;
-    border-radius: 0.4rem;
-    padding: 2rem 2.5rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.next-session > div::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(200, 64, 48, 0.10) 0%, transparent 65%);
-    pointer-events: none;
-}
-
-.next-session h2 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #e07050;
-    margin-bottom: 0.85rem;
-    letter-spacing: 0.05em;
-    position: relative;
-}
-
-#next-session-content {
-    position: relative;
-}
-
-#next-session-content > p {
-    color: #907060;
-    font-style: italic;
-    font-size: 0.95rem;
-}
-
-.resume {
-    padding: 4rem 8% 5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-.resume h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #e8c060;
-    letter-spacing: 0.04em;
-}
-
-.resume > p {
-    color: #a89070;
-    font-size: 1rem;
+.hero-intro {
+    max-width: 34rem;
+    color: var(--text-soft);
+    font-size: clamp(1rem, 2vw, 1.12rem);
     line-height: 1.7;
 }
 
-#campaign-preview-list {
-    width: 100%;
-    max-width: 38rem;
+.hero-actions {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
 }
 
-.resume > a {
-    display: inline-block;
-    padding: 0.75rem 2rem;
-    border-radius: 0.3rem;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1rem;
-    letter-spacing: 0.04em;
-    background-color: transparent;
-    color: #e8c060;
-    border: 0.15rem solid #c89030;
-    transition: background-color 0.2s, border-color 0.2s;
-}
-
-.resume > a:hover {
-    background-color: rgba(200, 144, 48, 0.12);
-    border-color: #e8c060;
-}
-
-.resume-card {
-    display: block;
-    padding: 1.5rem 1.75rem;
-    background: #2e1a08;
-    border: 0.1rem solid #3d2210;
-    border-radius: 0.4rem;
-    text-decoration: none;
-    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-}
-
-.resume-card:hover {
-    border-color: rgba(200, 144, 48, 0.5);
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-.resume-card-title {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #f5edd8;
-    margin-bottom: 0.4rem;
-}
-
-.resume-card-desc {
-    color: #a89070;
-    font-size: 0.9rem;
-    line-height: 1.6;
-}
-
-.resume-empty {
-    color: #a89070;
-    font-style: italic;
-    font-size: 0.95rem;
-}
-
-.session-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+.hero-art {
     position: relative;
+    aspect-ratio: 1;
+    width: min(100%, 24rem);
+    justify-self: center;
 }
 
-.session-card-campaign {
-    font-weight: bold;
-    color: #f5edd8;
-    font-size: 1.1rem;
+.hero-rune {
+    position: absolute;
+    z-index: 2;
+    inset: 24%;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--gold-dark);
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #4f331c, #1c140e 65%);
+    color: var(--gold-light);
+    font: 700 clamp(3.5rem, 9vw, 6rem) var(--font-display);
+    text-shadow: 0 0 35px rgba(224, 183, 102, 0.4);
+    box-shadow: inset 0 0 30px rgba(199, 147, 67, 0.1), 0 0 70px rgba(139, 79, 28, 0.14);
 }
 
-.session-card-date {
-    color: #e07050;
-    font-size: 1rem;
+.orbit {
+    position: absolute;
+    border: 1px solid rgba(224, 183, 102, 0.16);
+    border-radius: 50%;
 }
 
-.session-card-notes {
-    color: #a89070;
-    font-size: 0.9rem;
-    margin-top: 0.3rem;
+.orbit::before,
+.orbit::after {
+    content: "";
+    position: absolute;
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 12px var(--gold);
+}
+
+.orbit-one { inset: 10%; transform: rotate(18deg); }
+.orbit-one::before { top: 18%; left: 3%; }
+.orbit-one::after { right: 5%; bottom: 15%; }
+.orbit-two { inset: 2%; border-style: dashed; opacity: 0.5; transform: rotate(-13deg); }
+.orbit-two::before { top: 2%; left: 38%; }
+.orbit-two::after { right: 9%; bottom: 25%; }
+
+.spark { position: absolute; color: var(--gold-light); }
+.spark-one { top: 15%; right: 19%; font-size: 1.3rem; }
+.spark-two { bottom: 15%; left: 10%; }
+.spark-three { top: 22%; left: 8%; font-size: 2rem; }
+
+@media (max-width: 760px) {
+    .hero-layout { grid-template-columns: 1fr; }
+    .hero-art { display: none; }
 }
 
 @media (max-width: 600px) {
-    .hero {
-        padding: 3rem 1.25rem;
-    }
-
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-
-    .next-session {
-        padding: 2rem 1.25rem;
-    }
-
-    .next-session > div {
-        padding: 1.5rem 1.25rem;
-    }
-
-    .resume {
-        padding: 2rem 1.25rem 3rem;
-    }
-
-    .resume-card {
-        padding: 1.25rem 1rem;
-    }
+    .hero { min-height: calc(100vh - 9.8rem); }
+    .hero h1 { font-size: clamp(2.8rem, 14vw, 4rem); }
+    .hero-actions { align-items: stretch; flex-direction: column; }
 }

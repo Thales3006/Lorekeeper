@@ -3,60 +3,55 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>LoreKeeper - Home</title>
+        <meta name="description" content="LoreKeeper keeps tabletop campaigns and player rosters organized in one place.">
+        <title>LoreKeeper | Keep Your Story Alive</title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/pages/home.css" rel="stylesheet">
-
-        <script type="module" src="js/pages/home.js"></script>
     </head>
     <body>
-        <header>
-            <a class="brand" href="index.html">LoreKeeper</a>
-            <nav>
+        <header class="site-header">
+            <a class="brand" href="index.html" aria-label="LoreKeeper home">
+                <span class="brand-mark" aria-hidden="true">L</span>
+                <span>LoreKeeper</span>
+            </a>
+            <nav aria-label="Main navigation">
                 <a class="active" href="index.html">Home</a>
-                <a href="campaign-hub.html">Campaign Hub</a>
-                <a href="player-hub.html">Player Hub</a>
+                <a href="campaign-hub.html">Campaigns</a>
+                <a href="player-hub.html">Players</a>
             </nav>
         </header>
 
         <main>
             <section class="hero">
-                <div>
-                    <p>Your adventure awaits</p>
-                    <h1>Keep Your Story Alive</h1>
-                    <hr>
-                    <p>
-                        LoreKeeper is the all-in-one companion for tabletop RPG groups.
-                        Organize your campaigns, manage your players, and keep every adventure on track
-                        — all in one place.
-                    </p>
-                    <a href="campaign-hub.html">Start Your Adventure</a>
-                </div>
-            </section>
+                <div class="page-shell hero-layout">
+                    <div class="hero-copy">
+                        <p class="eyebrow">Your campaign companion</p>
+                        <h1>Keep your story alive.</h1>
+                        <p class="hero-intro">Organize campaigns and players in one focused place.</p>
+                        <div class="hero-actions">
+                            <a class="button button-primary" href="campaign-hub.html">View campaigns <span aria-hidden="true">→</span></a>
+                            <a class="button button-ghost" href="player-hub.html">View players</a>
+                        </div>
+                    </div>
 
-            <section class="next-session">
-                <div>
-                    <h2>Next Session</h2>
-                    <div id="next-session-content">
-                        <p>No upcoming sessions scheduled yet. Check back after your GM sets the date!</p>
+                    <div class="hero-art" aria-hidden="true">
+                        <span class="orbit orbit-one"></span>
+                        <span class="orbit orbit-two"></span>
+                        <span class="hero-rune">L</span>
+                        <span class="spark spark-one">✦</span>
+                        <span class="spark spark-two">✧</span>
+                        <span class="spark spark-three">·</span>
                     </div>
                 </div>
-            </section>
-
-            <section class="resume">
-                <h2>Continue Your Campaign</h2>
-                <p>Jump back into your last adventure.</p>
-                <div id="campaign-preview-list"></div>
-                <a href="campaign-hub.html">View All Campaigns</a>
             </section>
         </main>
 
         <footer>
             <span>LoreKeeper &copy; 2026</span>
-            <nav>
+            <nav aria-label="Footer navigation">
                 <a href="index.html">Home</a>
-                <a href="campaign-hub.html">Campaign Hub</a>
+                <a href="campaign-hub.html">Campaigns</a>
                 <a href="https://github.com/Thales3006/LoreKeeper" target="_blank" rel="noopener">GitHub</a>
             </nav>
         </footer>
