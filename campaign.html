@@ -17,9 +17,11 @@
                 <span>LoreKeeper</span>
             </a>
             <nav aria-label="Main navigation">
-                <a href="index.html">Home</a>
-                <a class="active" href="campaign-hub.html">Campaigns</a>
-                <a href="player-hub.html">Players</a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a class="active" href="campaign-hub.html">Campaigns</a></li>
+                    <li><a href="player-hub.html">Players</a></li>
+                </ul>
             </nav>
         </header>
 
@@ -30,11 +32,11 @@
                 </a>
 
                 <section class="campaign-hero" aria-labelledby="campaign-title">
-                    <div class="campaign-hero-copy">
+                    <header class="campaign-hero-copy">
                         <p class="eyebrow">Campaign dashboard</p>
                         <h1 id="campaign-title">Loading campaign…</h1>
                         <p id="campaign-description" class="campaign-description"></p>
-                    </div>
+                    </header>
                     <button class="button button-primary" id="edit-campaign-btn" type="button" disabled>
                         Edit campaign
                     </button>
@@ -55,14 +57,14 @@
                     </article>
                 </section>
 
-                <div class="dashboard-grid">
+                <section class="dashboard-grid" aria-label="Campaign details">
                     <section class="panel overview-panel" aria-labelledby="overview-title">
-                        <div class="panel-heading">
+                        <header class="panel-heading">
                             <div>
                                 <p class="eyebrow">Story</p>
                                 <h2 id="overview-title">Campaign overview</h2>
                             </div>
-                        </div>
+                        </header>
                         <dl class="detail-list">
                             <div>
                                 <dt>Title</dt>
@@ -76,16 +78,16 @@
                     </section>
 
                     <section class="panel roster-panel" aria-labelledby="roster-title">
-                        <div class="panel-heading">
+                        <header class="panel-heading">
                             <div>
                                 <p class="eyebrow">Party</p>
                                 <h2 id="roster-title">Player roster</h2>
                             </div>
                             <a class="text-link" href="player-hub.html">Manage players <span aria-hidden="true">→</span></a>
-                        </div>
-                        <div id="campaign-player-list" class="roster-list"></div>
+                        </header>
+                        <ul id="campaign-player-list" class="roster-list"></ul>
                     </section>
-                </div>
+                </section>
             </div>
         </main>
 
@@ -99,13 +101,13 @@
 
         <dialog id="campaign-editor" class="editor-dialog" aria-labelledby="editor-title">
             <form id="campaign-form" method="dialog">
-                <div class="dialog-heading">
+                <header class="dialog-heading">
                     <div>
                         <p class="eyebrow">Campaign details</p>
                         <h2 id="editor-title">Edit campaign</h2>
                     </div>
                     <button class="icon-button" id="close-editor-btn" type="button" aria-label="Close editor">×</button>
-                </div>
+                </header>
 
                 <div class="field">
                     <label for="campaign-title-input">Title</label>
@@ -137,10 +139,12 @@
         <footer>
             <span>LoreKeeper &copy; 2026</span>
             <nav aria-label="Footer navigation">
-                <a href="index.html">Home</a>
-                <a href="campaign-hub.html">Campaigns</a>
-                <a href="player-hub.html">Players</a>
-                <a href="https://github.com/Thales3006/LoreKeeper" target="_blank" rel="noopener">GitHub</a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="campaign-hub.html">Campaigns</a></li>
+                    <li><a href="player-hub.html">Players</a></li>
+                    <li><a href="https://github.com/Thales3006/LoreKeeper" target="_blank" rel="noopener">GitHub</a></li>
+                </ul>
             </nav>
         </footer>
     </body>
