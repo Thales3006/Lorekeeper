@@ -1,61 +1,72 @@
 import { Player } from "../models/player.js";
 import { PlayerRepository } from "../repositories/player-repository.js";
+import { CampaignRepository } from "../repositories/campaign-repository.js";
 
-const playerRepo = new PlayerRepository();
-
+const playerRepository = new PlayerRepository();
 const playerForm = document.querySelector("#player-form");
 const playerList = document.querySelector("#player-list");
 const playerDetail = document.querySelector("#player-detail");
 const sidebar = document.querySelector("#player-sidebar");
 const backLink = document.querySelector("#back-link");
-
 const nameInput = document.querySelector("#player-name");
 const classInput = document.querySelector("#player-class");
 const raceInput = document.querySelector("#player-race");
 const alignmentSelect = document.querySelector("#player-alignment");
-
-const editBtn = document.querySelector("#edit-btn");
-const saveBtn = document.querySelector("#save-btn");
-const discardBtn = document.querySelector("#discard-btn");
+const editButton = document.querySelector("#edit-btn");
+const saveButton = document.querySelector("#save-btn");
+const discardButton = document.querySelector("#discard-btn");
 
 let selectedPlayer = null;
 let isEditing = false;
 
+function setFieldsDisabled(disabled) {
+    [nameInput, classInput, raceInput, alignmentSelect].forEach((field) => {
+        field.disabled = disabled;
+    });
+}
+
+function setFormCopy(title, description, eyebrow = "Character sheet") {
+    document.querySelector("#player-form-title").textContent = title;
+    document.querySelector("#form-description").textContent = description;
+    document.querySelector("#form-eyebrow").textContent = eyebrow;
+}
+
 function renderForm() {
-    if (selectedPlayer === null && !isEditing) {
-        nameInput.value = "no player selected";
-        classInput.value = "";
-        raceInput.value = "";
-        alignmentSelect.value = "true-neutral";
+    if (!selectedPlayer && !isEditing) {
+        playerForm.reset();
+        alignmentSelect.value = "True Neutral";
         setFieldsDisabled(true);
-        editBtn.disabled = true;
-        editBtn.hidden = false;
-        saveBtn.hidden = true;
-        discardBtn.hidden = true;
-    } else if (selectedPlayer !== null && !isEditing) {
+        setFormCopy("Select a player", "Choose a player from the roster to view their details.");
+        editButton.disabled = true;
+        editButton.hidden = false;
+        saveButton.hidden = true;
+        discardButton.hidden = true;
+        return;
+    }
+
+    if (selectedPlayer && !isEditing) {
         nameInput.value = selectedPlayer.name;
         classInput.value = selectedPlayer.charClass;
         raceInput.value = selectedPlayer.race;
         alignmentSelect.value = selectedPlayer.alignment;
         setFieldsDisabled(true);
-        editBtn.disabled = false;
-        editBtn.hidden = false;
-        saveBtn.hidden = true;
-        discardBtn.hidden = true;
-    } else {
-        setFieldsDisabled(false);
-        editBtn.disabled = true;
-        editBtn.hidden = true;
-        saveBtn.hidden = false;
-        discardBtn.hidden = false;
+        setFormCopy(selectedPlayer.name, `${selectedPlayer.charClass} · ${selectedPlayer.race}`);
+        editButton.disabled = false;
+        editButton.hidden = false;
+        saveButton.hidden = true;
+        discardButton.hidden = true;
+        return;
     }
-}
 
-function setFieldsDisabled(disabled) {
-    nameInput.disabled = disabled;
-    classInput.disabled = disabled;
-    raceInput.disabled = disabled;
-    alignmentSelect.disabled = disabled;
+    setFieldsDisabled(false);
+    setFormCopy(
+        selectedPlayer ? `Edit ${selectedPlayer.name}` : "Create a player",
+        selectedPlayer ? "Update this character's details below." : "Add a new character to your shared roster.",
+        selectedPlayer ? "Editing character" : "New character"
+    );
+    editButton.hidden = true;
+    saveButton.hidden = false;
+    discardButton.hidden = false;
 }
 
 function showDetail(show) {
@@ -64,123 +75,163 @@ function showDetail(show) {
     sidebar.style.display = show ? "none" : "block";
 }
 
-function regeneratePlayerList() {
-    playerList.innerHTML = "";
-    playerRepo.read_all().forEach((player) => {
-        playerList.append(PlayerCardComponent(player));
-    });
-}
-
 function selectPlayer(player) {
     selectedPlayer = player;
     isEditing = false;
     renderForm();
+    renderPlayerList();
     showDetail(true);
 }
 
-function removePlayer(id) {
-    playerRepo.delete(id);
-    if (selectedPlayer && selectedPlayer.id === id) {
+function removePlayer(player) {
+    const confirmed = window.confirm(`Delete “${player.name}”? This action cannot be undone.`);
+    if (!confirmed) return;
+
+    playerRepository.delete(player.id);
+    const campaignRepository = new CampaignRepository();
+    campaignRepository.read_all().forEach((campaign) => {
+        const currentIds = campaign.players_id ?? [];
+        const nextIds = currentIds.filter((id) => Number(id) !== Number(player.id));
+        if (nextIds.length !== currentIds.length) {
+            campaign.players_id = nextIds;
+            campaignRepository.update(campaign);
+        }
+    });
+    if (selectedPlayer?.id === player.id) {
         selectedPlayer = null;
         isEditing = false;
         renderForm();
         showDetail(false);
     }
-    regeneratePlayerList();
+    renderPlayerList();
 }
 
-function PlayerCardComponent(player) {
-    const div = document.createElement("div");
-    div.className = "player-card";
-    div.id = `player-${player.id}`;
+function createPlayerCard(player) {
+    const article = document.createElement("article");
+    article.className = "player-card";
+    if (selectedPlayer?.id === player.id) article.classList.add("selected");
 
-    div.addEventListener("click", () => {
-        selectPlayer(player);
-    });
+    const selectButton = document.createElement("button");
+    selectButton.className = "player-select";
+    selectButton.type = "button";
+    selectButton.addEventListener("click", () => selectPlayer(player));
 
-    const btnDelete = document.createElement("button");
-    btnDelete.type = "button";
-    btnDelete.textContent = "Delete";
-    btnDelete.className = "oncorner";
+    const avatar = document.createElement("span");
+    avatar.className = "player-avatar";
+    avatar.textContent = player.name.trim().charAt(0).toUpperCase() || "?";
 
-    btnDelete.addEventListener("click", (event) => {
-        event.stopPropagation();
-        removePlayer(player.id);
-    });
+    const copy = document.createElement("span");
+    copy.className = "player-copy";
+    const name = document.createElement("strong");
+    name.textContent = player.name;
+    const details = document.createElement("small");
+    details.textContent = `${player.charClass} · ${player.race}`;
+    copy.append(name, details);
+    selectButton.append(avatar, copy);
 
-    div.innerHTML = `
-        <h2>${player.name}</h2>
-        <p>${player.charClass} &bull; ${player.race} &bull; ${player.alignment}</p>
-    `;
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "player-delete";
+    deleteButton.type = "button";
+    deleteButton.textContent = "×";
+    deleteButton.setAttribute("aria-label", `Delete ${player.name}`);
+    deleteButton.addEventListener("click", () => removePlayer(player));
 
-    div.appendChild(btnDelete);
+    article.append(selectButton, deleteButton);
+    return article;
+}
 
-    return div;
+function createEmptyState() {
+    const empty = document.createElement("div");
+    empty.className = "player-empty";
+    const title = document.createElement("strong");
+    title.textContent = "No players yet";
+    const copy = document.createElement("p");
+    copy.textContent = "Create a player to build your roster.";
+    empty.append(title, copy);
+    return empty;
+}
+
+function renderPlayerList() {
+    const players = playerRepository.read_all();
+    playerList.replaceChildren();
+    document.querySelector("#player-total").textContent = players.length;
+    if (players.length === 0) {
+        playerList.append(createEmptyState());
+        return;
+    }
+    players.forEach((player) => playerList.append(createPlayerCard(player)));
 }
 
 function getFormPlayer() {
     return new Player(
-        selectedPlayer ? selectedPlayer.id : null,
-        nameInput.value,
-        classInput.value,
-        raceInput.value,
+        selectedPlayer?.id ?? null,
+        nameInput.value.trim(),
+        classInput.value.trim(),
+        raceInput.value.trim(),
         alignmentSelect.value,
-        selectedPlayer ? selectedPlayer.created_at : Date.now()
+        selectedPlayer?.created_at ?? Date.now()
     );
 }
 
 function getNextId() {
-    const all = playerRepo.read_all();
-    if (all.length === 0) return 0;
-    return Math.max(...all.map(p => p.id)) + 1;
+    const players = playerRepository.read_all();
+    if (players.length === 0) return 0;
+    return Math.max(...players.map((player) => Number(player.id) || 0)) + 1;
 }
 
 document.querySelector("#new-player-btn").addEventListener("click", () => {
     selectedPlayer = null;
     isEditing = true;
-    nameInput.value = "";
-    classInput.value = "";
-    raceInput.value = "";
-    alignmentSelect.value = "true-neutral";
+    playerForm.reset();
+    alignmentSelect.value = "True Neutral";
     renderForm();
     showDetail(true);
+    nameInput.focus();
 });
 
-editBtn.addEventListener("click", () => {
+editButton.addEventListener("click", () => {
     isEditing = true;
     renderForm();
+    nameInput.focus();
 });
 
-saveBtn.addEventListener("click", () => {
-    if (!playerForm.checkValidity()) {
-        playerForm.reportValidity();
+playerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!playerForm.reportValidity()) return;
+
+    const textFields = [nameInput, classInput, raceInput];
+    const invalidField = textFields.find((field) => !field.value.trim());
+    if (invalidField) {
+        invalidField.setCustomValidity("This field cannot contain only spaces.");
+        invalidField.reportValidity();
         return;
     }
+
     const player = getFormPlayer();
     if (player.id === null) {
         player.id = getNextId();
-        playerRepo.create(player);
+        playerRepository.create(player);
     } else {
-        playerRepo.update(player);
+        playerRepository.update(player);
     }
     selectedPlayer = player;
     isEditing = false;
-    regeneratePlayerList();
+    renderPlayerList();
     renderForm();
 });
 
-discardBtn.addEventListener("click", () => {
-    isEditing = false;
-    if (selectedPlayer === null) {
-        renderForm();
-        showDetail(false);
-    } else {
-        renderForm();
-    }
+[nameInput, classInput, raceInput].forEach((field) => {
+    field.addEventListener("input", () => field.setCustomValidity(""));
 });
 
-backLink.addEventListener("click", (e) => {
-    e.preventDefault();
+discardButton.addEventListener("click", () => {
+    isEditing = false;
+    renderForm();
+    if (!selectedPlayer) showDetail(false);
+});
+
+backLink.addEventListener("click", (event) => {
+    event.preventDefault();
     showDetail(false);
 });
 
@@ -191,5 +242,5 @@ window.addEventListener("resize", () => {
     }
 });
 
-regeneratePlayerList();
+renderPlayerList();
 renderForm();
