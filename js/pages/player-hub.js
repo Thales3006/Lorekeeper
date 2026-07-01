@@ -107,9 +107,9 @@ function removePlayer(player) {
 }
 
 function createPlayerCard(player) {
-    const article = document.createElement("article");
-    article.className = "player-card";
-    if (selectedPlayer?.id === player.id) article.classList.add("selected");
+    const item = document.createElement("li");
+    item.className = "player-card";
+    if (selectedPlayer?.id === player.id) item.classList.add("selected");
 
     const selectButton = document.createElement("button");
     selectButton.className = "player-select";
@@ -136,12 +136,12 @@ function createPlayerCard(player) {
     deleteButton.setAttribute("aria-label", `Delete ${player.name}`);
     deleteButton.addEventListener("click", () => removePlayer(player));
 
-    article.append(selectButton, deleteButton);
-    return article;
+    item.append(selectButton, deleteButton);
+    return item;
 }
 
 function createEmptyState() {
-    const empty = document.createElement("div");
+    const empty = document.createElement("li");
     empty.className = "player-empty";
     const title = document.createElement("strong");
     title.textContent = "No players yet";

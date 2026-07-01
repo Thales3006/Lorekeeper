@@ -17,15 +17,17 @@
                 <span>LoreKeeper</span>
             </a>
             <nav aria-label="Main navigation">
-                <a href="index.html">Home</a>
-                <a class="active" href="campaign-hub.html">Campaigns</a>
-                <a href="player-hub.html">Players</a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a class="active" href="campaign-hub.html">Campaigns</a></li>
+                    <li><a href="player-hub.html">Players</a></li>
+                </ul>
             </nav>
         </header>
 
         <main class="hub-main">
             <div class="page-shell">
-                <section class="page-heading">
+                <header class="page-heading">
                     <div>
                         <p class="eyebrow">Your chronicles</p>
                         <h1>Campaign library</h1>
@@ -35,24 +37,24 @@
                         <span id="campaign-total" class="count-badge">0 campaigns</span>
                         <button class="button button-primary" id="open-campaign-form" type="button">+ New campaign</button>
                     </div>
-                </section>
+                </header>
 
                 <section class="campaign-library" aria-label="Your campaigns">
-                    <div id="campaign-list" class="campaign-list"></div>
+                    <ul id="campaign-list" class="campaign-list"></ul>
                 </section>
             </div>
         </main>
 
         <dialog id="campaign-form-dialog" class="campaign-form-dialog" aria-labelledby="campaign-form-title">
             <form id="add-campaign-form">
-                <div class="dialog-heading">
+                <header class="dialog-heading">
                     <div>
                         <p class="eyebrow">New adventure</p>
                         <h2 id="campaign-form-title">Create a campaign</h2>
                         <p>Start with the essentials. Players can be added from the dashboard.</p>
                     </div>
                     <button class="icon-button" id="close-campaign-form" type="button" aria-label="Close form">×</button>
-                </div>
+                </header>
 
                 <div class="field">
                     <label for="add-campaign-title">Campaign title</label>
@@ -74,10 +76,12 @@
         <footer>
             <span>LoreKeeper &copy; 2026</span>
             <nav aria-label="Footer navigation">
-                <a href="index.html">Home</a>
-                <a href="campaign-hub.html">Campaigns</a>
-                <a href="player-hub.html">Players</a>
-                <a href="https://github.com/Thales3006/LoreKeeper" target="_blank" rel="noopener">GitHub</a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="campaign-hub.html">Campaigns</a></li>
+                    <li><a href="player-hub.html">Players</a></li>
+                    <li><a href="https://github.com/Thales3006/LoreKeeper" target="_blank" rel="noopener">GitHub</a></li>
+                </ul>
             </nav>
         </footer>
     </body>

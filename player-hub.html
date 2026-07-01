@@ -17,44 +17,46 @@
                 <span>LoreKeeper</span>
             </a>
             <nav aria-label="Main navigation">
-                <a href="index.html">Home</a>
-                <a href="campaign-hub.html">Campaigns</a>
-                <a class="active" href="player-hub.html">Players</a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="campaign-hub.html">Campaigns</a></li>
+                    <li><a class="active" href="player-hub.html">Players</a></li>
+                </ul>
             </nav>
         </header>
 
         <main class="players-main">
             <div class="page-shell">
-                <section class="page-heading">
+                <header class="page-heading">
                     <div>
                         <p class="eyebrow">Adventuring party</p>
                         <h1>Player roster</h1>
                         <p>Keep every hero organized and ready for their next campaign.</p>
                     </div>
                     <button class="button button-primary" id="new-player-btn" type="button">+ New player</button>
-                </section>
+                </header>
 
                 <section class="players-workspace">
                     <aside id="player-sidebar" class="panel player-sidebar" aria-labelledby="player-list-title">
-                        <div class="sidebar-heading">
+                        <header class="sidebar-heading">
                             <div>
                                 <p class="eyebrow">Characters</p>
                                 <h2 id="player-list-title">All players</h2>
                             </div>
                             <span id="player-total" class="player-count">0</span>
-                        </div>
-                        <div id="player-list" class="player-list"></div>
+                        </header>
+                        <ul id="player-list" class="player-list"></ul>
                     </aside>
 
                     <section id="player-detail" class="panel player-detail" aria-labelledby="player-form-title">
                         <a id="back-link" class="back-link" href="#"><span aria-hidden="true">←</span> Players</a>
-                        <div class="detail-heading">
+                        <header class="detail-heading">
                             <div>
                                 <p class="eyebrow" id="form-eyebrow">Character sheet</p>
                                 <h2 id="player-form-title">Select a player</h2>
                                 <p id="form-description">Choose a player from the roster to view their details.</p>
                             </div>
-                        </div>
+                        </header>
 
                         <form id="player-form">
                             <div class="form-grid">
@@ -103,10 +105,12 @@
         <footer>
             <span>LoreKeeper &copy; 2026</span>
             <nav aria-label="Footer navigation">
-                <a href="index.html">Home</a>
-                <a href="campaign-hub.html">Campaigns</a>
-                <a href="player-hub.html">Players</a>
-                <a href="https://github.com/Thales3006/LoreKeeper" target="_blank" rel="noopener">GitHub</a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="campaign-hub.html">Campaigns</a></li>
+                    <li><a href="player-hub.html">Players</a></li>
+                    <li><a href="https://github.com/Thales3006/LoreKeeper" target="_blank" rel="noopener">GitHub</a></li>
+                </ul>
             </nav>
         </footer>
     </body>

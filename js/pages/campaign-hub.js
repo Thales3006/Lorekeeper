@@ -46,8 +46,8 @@ function removeCampaign(campaign) {
 }
 
 function createCampaignCard(campaign) {
-    const article = document.createElement("article");
-    article.className = "campaign-card";
+    const item = document.createElement("li");
+    item.className = "campaign-card";
 
     const body = document.createElement("div");
     body.className = "campaign-card-body";
@@ -97,12 +97,12 @@ function createCampaignCard(campaign) {
     deleteButton.addEventListener("click", () => removeCampaign(campaign));
     actions.append(openLink, deleteButton);
 
-    article.append(body, actions);
-    return article;
+    item.append(body, actions);
+    return item;
 }
 
 function createEmptyState() {
-    const empty = document.createElement("div");
+    const empty = document.createElement("li");
     empty.className = "library-empty";
     const icon = document.createElement("span");
     icon.textContent = "◇";

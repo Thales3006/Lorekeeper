@@ -35,8 +35,8 @@ function getCampaignPlayers() {
 }
 
 function createPlayerCard(player) {
-    const article = document.createElement("article");
-    article.className = "roster-card";
+    const item = document.createElement("li");
+    item.className = "roster-card";
 
     const avatar = document.createElement("span");
     avatar.className = "player-avatar";
@@ -48,8 +48,8 @@ function createPlayerCard(player) {
     const details = document.createElement("p");
     details.textContent = `${player.charClass} · ${player.race} · ${player.alignment}`;
     copy.append(name, details);
-    article.append(avatar, copy);
-    return article;
+    item.append(avatar, copy);
+    return item;
 }
 
 function renderRoster(players) {
@@ -57,7 +57,7 @@ function renderRoster(players) {
     container.replaceChildren();
 
     if (players.length === 0) {
-        const empty = document.createElement("div");
+        const empty = document.createElement("li");
         empty.className = "inline-empty";
         const title = document.createElement("strong");
         title.textContent = "No players in this party yet";
